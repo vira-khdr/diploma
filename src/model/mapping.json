@@ -1,0 +1,703 @@
+{
+    "inputs": {
+        "pdfReport": {
+            "name": "Inputs!B27",
+            "position": "Inputs!B30",
+            "email": "Inputs!B28",
+            "hospitalGroup": "Inputs!B29"
+        },
+        "generalInputs": {
+            "viewMode": "Inputs!B3",
+            "JDENumber": "Inputs!B4",
+            "hospitalName": "Inputs!C5",
+            "currentGPO": "Inputs!C7",
+            "currentBaxterTier": "Inputs!B8",
+            "beds": "Inputs!C10",
+            "ICUBeds": "Inputs!C11",
+            "IDN": "Inputs!C6",
+            "isManualBedsInput": "Inputs!B12"
+        },
+        "productsInputs": {
+            "currentPumpVendor": "Inputs!B15",
+            "currentPumpSetASP": "Inputs!B16",
+            "currentGravitySetSupplier": "Inputs!B17",
+            "currentGravitySetASP": "Inputs!B18",
+            "currentClosedSystemTransferDevice": "Inputs!B19",
+            "dosesPerDayHazardousDrugs": "Inputs!B20",
+            "useAssetTrackingOnCurrentPumps": "Inputs!B21",
+            "currentSetSupplier": "Inputs!B22",
+            "currentSetASP": "Inputs!B23"
+        },
+        "savings": {
+            "checkboxes": {
+                "pumps": "Summary!A5",
+                "access": "Summary!A6"
+            }
+        },
+        "pumps": {
+            "checkboxes": {
+                "autoProgramming": "Pumps!A4",
+                "autoDocumentation": "Pumps!A5",
+                "titrationErrorReduction": "Pumps!A6",
+                "singleSetTechnology": "Pumps!A7",
+                "deviceVue": "Pumps!A8"
+            }
+        }, 
+        "access": {
+            "checkboxes": {
+                "arisure": "Access!A5"
+            }
+        },
+        "fluids": {
+            "checkboxes": {
+                "miniBagPlus": "IV Fluids!A6"
+            }
+        },
+        "assumptions": {
+            "programming": {
+                "numberOfPumpsPerBed": "Assumptions!B4",
+                "numberOfInfusions": "Assumptions!B5",
+                "percentOfInfusionsTitrated": "Assumptions!B6",
+                "numberOfTimesAnInfusionIsTitrated": "Assumptions!B7",
+                "drugLibraryComplianceCurrently1Month": "Assumptions!B8",
+                "drugLibraryComplianceBaxter1Month": "Assumptions!B11",
+                "drugLibraryComplianceCurrently6Month": "Assumptions!B9",
+                "drugLibraryComplianceBaxter6Month": "Assumptions!B12",
+                "drugLibraryComplianceCurrently12Month": "Assumptions!B10",
+                "drugLibraryComplianceBaxter12Month": "Assumptions!B13",
+                "costPerPreventableADERelatedToMedError": "Assumptions!B14",
+                "percentOfUnprotectedInfusions": "Assumptions!B15"
+            },
+            "autodocumentation": {
+                "daysPerYear": "Assumptions!B18",
+                "percentOfInfusionsInOPPS": "Assumptions!B21",
+                "admitsPerYearPerBed": "Assumptions!B19",
+                "OPPSInfusionsPerPatientDay": "Assumptions!B22",
+                "averageOccupancyRate": "Assumptions!B20",
+                "medicareAdmitsPerBed": "Assumptions!B23",
+                "percentFullyReimbursedAtPresent": "Assumptions!B24",
+                "percentOfChemoInfusionsLasting1hr": "Assumptions!B27",
+                "percentInfusionsThatAreChemo": "Assumptions!B25",
+                "percentOfNonChemoInfusionsLastingUpTo1hr": "Assumptions!B28",
+                "percentOfChemoInfusionsLastingUpTo1hr": "Assumptions!B26",
+                "percentOfNonChemoInfusionsLastingMore1hr": "Assumptions!B29",
+                "dollarPerStartStopChemoIVInfusion1stHour96413": "Assumptions!B30",
+                "dollarPerStartStopNonChemoIVInfusionAdditionalHour96366": "Assumptions!B34",
+                "dollarPerStartStopChemoIVInfusionAdditionalHour96415": "Assumptions!B31",
+                "dollarPerStartStopChemoIVPushSingleAdministration96409": "Assumptions!B32",
+                "dollarPerStartStopNonchemoIVinfusion1stHour96365": "Assumptions!B33",
+                "dillarPerStartStopNonchemoIVPushSingleAdministration96374": "Assumptions!B35",
+                "estimatedTimeUsedByNurseForCurrentDocumentation": "Assumptions!B36",
+                "avgNurseWage": "Assumptions!B39",
+                "estimatedTimeUsedByNurseWithAutoDocumentation": "Assumptions!B37",
+                "avgBedsPerNursePerShift": "Assumptions!B38"
+            },
+            "sets": {
+                "setsPerPumpPerMonth": "Assumptions!B43",
+                "currentGravitySetASP": "Assumptions!B44",
+                "SSTPriceUnit": "Assumptions!B52"
+            },
+            "utilization": {
+                "ERDisconnectRatio": "Assumptions!B46",
+                "avgSetWeight": "Assumptions!B51",
+                "usageOfGravitySet": "Assumptions!B50",
+                "numberOfPumpsChannelsPerBed": "Assumptions!B57",
+                "usageOfPumpSet": "Assumptions!B49"
+            },
+            "nursing": {
+                "avgNurseTime": "Assumptions!B45",
+                "avgNurseWageHr": "Assumptions!B58"
+            },
+            "admits": {
+                "ERAdmits": "Assumptions!B47",
+                "electiveAdmits": "Assumptions!B48"
+            },
+            "waste": {
+                "costOfWasteDisposal": "Assumptions!B53",
+                "costOfBag": "Assumptions!B54",
+                "percentOfSolutionLeftInNonEmptyBag": "Assumptions!B56",
+                "percentBagsThatAreNotEmptyWhenDisconnectOccurs": "Assumptions!B55"
+            },
+            "dosage": {
+                "percentClosedAdministrationSetDose": "Assumptions!B62",
+                "percentClosedSyringeBolus": "Assumptions!B63",
+                "daysPerYear": "Assumptions!B66"
+            },
+            "weight": {
+                "avgWeightConnector": "Assumptions!B64",
+                "costOfWasteDisposal": "Assumptions!B53"
+            },
+            "pump": {
+                "numberOfPumps": "Assumptions!B4",
+                "costPerPump": "Assumptions!B77",
+                "costPerTag": "Assumptions!B78",
+                "daysPerYear": "Assumptions!B18"
+            },
+            "biomed": {
+                "avgBiomedWage": "Assumptions!B79",
+                "numberOfShifts": "Assumptions!B80",
+                "estimatedTimePortableEquipment": "Assumptions!B82",
+                "estimatedTimePortableEquipmentWithDV": "Assumptions!B83",
+                "extraPumpsLeased": "Assumptions!B84"
+            },
+            "titration": {
+                "numberOfInfusionsStartsICUPerPumpPerDay": "Assumptions!B5",
+                "numberOfPumpsPerBed": "Assumptions!B4",
+                "nearMissPullBackRate": "Assumptions!B70",
+                "percentOfPullBacksThatMayLeadToPreventableADE": "Assumptions!B15",
+                "costPerPreventableADERelatedToMedError": "Assumptions!B14"
+            },
+            "deviceVue": {
+                "numberOfPumps": "Assumptions!B4",
+                "costPerPump": "Assumptions!B77",
+                "costPerTag": "Assumptions!B78",
+                "daysPerYear": "Assumptions!B18",
+                "avgBiomedWage": "Assumptions!B79",
+                "numberOfShifts": "Assumptions!B80",
+                "estimatedTimePortableEquipment": "Assumptions!B82",
+                "estimatedTimePortableEquipmentWithDV": "Assumptions!B83",
+                "extraPumpsLeased": "Assumptions!B84",
+                "nursesSpend1HourPerShift": "Assumptions!B81",
+                "avgNurseWage": "Assumptions!B39",
+                "avgBedsPerNursePerShift": "Assumptions!B38",
+                "portableDevicesInHospitals": "Assumptions!B88",
+                "pumpRentPricePerYear": "Assumptions!B89"
+            }
+        },
+        "popups": {
+            "setsAndNeedlessConnectors": {
+                "checkboxes": {
+                    "onelink": "Sets and Needless Connectors!A4",
+                    "clearlink": "Sets and Needless Connectors!A5",
+                    "interlink": "Sets and Needless Connectors!A6",
+                    "otherAccess": "Sets and Needless Connectors!A7"
+                }
+            },
+            "solutions": {
+                "checkboxes": {
+                    "LVP": "Solutions!A4",
+                    "SVP": "Solutions!A5",
+                    "pourBottles" : "Solutions!A6"
+                }
+            },
+            "premix": {
+                "checkboxes": {
+                    "frozenPremix": "Premixes!A4",
+                    "liquidPremix": "Premixes!A5"
+                }
+            },
+            "nutrition": {
+                "checkboxes": {
+                    "AAPremix": "Nutrition!A4",
+                    "exactamixDisposables": "Nutrition!A5",
+                    "aminoAcids": "Nutrition!A6",
+                    "lipids": "Nutrition!A7",
+                    "vitamins": "Nutrition!A8"
+                } 
+            }
+        }
+    },
+    "output": {
+        "generalInputs": {
+            "hospitalName": "Inputs!B5",
+            "currentGPO": "Inputs!B7",
+            "beds": "Inputs!B10",
+            "ICUBeds": "Inputs!B11",
+            "IDN": "Inputs!B6"
+        },
+        "savings": {
+            "annual": {
+                "direct": {
+                    "pumps": "Summary!C5",
+                    "access": "Summary!C6",
+                    "fluids": "Summary!C7",
+                    "total": "Summary!C8"
+                },
+                "indirect": {
+                    "pumps": "Summary!D5",
+                    "access": "Summary!D6",
+                    "total": "Summary!D8"
+                },
+                "revenue": {
+                    "pumps": "Summary!E5",
+                    "total": "Summary!E8"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "pumps": "Summary!C12",
+                    "access": "Summary!C13",
+                    "fluids": "Summary!C14",
+                    "total": "Summary!C15"
+                },
+                "indirect": {
+                    "pumps": "Summary!D12",
+                    "access": "Summary!D13",
+                    "total": "Summary!D15"
+                },
+                "revenue": {
+                    "pumps": "Summary!E12",
+                    "total": "Summary!E15"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "pumps": "Summary!C19",
+                    "access": "Summary!C20",
+                    "fluids": "Summary!C21",
+                    "total": "Summary!C22"
+                },
+                "indirect": {
+                    "pumps": "Summary!D19",
+                    "access": "Summary!D20",
+                    "fluids": "Summary!D21",
+                    "total": "Summary!D22"
+                },
+                "revenue": {
+                    "pumps": "Summary!E19",
+                    "total": "Summary!E22"
+                }
+            },
+            "sectrumIQ": {
+                "unprotectedInfusions": {
+                    "competitor": "Programming!F7",
+                    "baxter": "Programming!F8"
+                },
+                "costOfPumpGravitySets": {
+                    "competitor": "SingleSet!G7",
+                    "baxter": "SingleSet!G8"
+                },
+                "reductionInUnprotectedInfusions": "Programming!E10",
+                "savingsFromPotentialADEs": "Programming!E11"
+            },
+            "qualifyingTier": "Calculations!B9"
+        },
+        "pumps": {
+            "annual": {
+                "direct": {
+                    "singleSetTechnology": "Pumps!C7",
+                    "deviceVue": "Pumps!C8",
+                    "total": "Pumps!C9"
+                },
+                "indirect": {
+                    "autoProgramming": "Pumps!D4",
+                    "singleSetTechnology": "Pumps!D7",
+                    "deviceVue": "Pumps!D8",
+                    "autoDocumentation": "Pumps!D5",
+                    "titrationErrorReduction": "Pumps!D6",
+                    "total": "Pumps!D9"
+                },
+                "revenue": {
+                    "autoDocumentation": "Pumps!E5",
+                    "total": "Pumps!E9"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "singleSetTechnology": "Pumps!C16",
+                    "deviceVue": "Pumps!C17",
+                    "total": "Pumps!C18"
+                },
+                "indirect": {
+                    "autoProgramming": "Pumps!D13",
+                    "singleSetTechnology": "Pumps!D16",
+                    "deviceVue": "Pumps!D17",
+                    "autoDocumentation": "Pumps!D14",
+                    "titrationErrorReduction": "Pumps!D15",
+                    "total": "Pumps!D18"
+                },
+                "revenue": {
+                    "autoDocumentation": "Pumps!E14",
+                    "total": "Pumps!E18"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "singleSetTechnology": "Pumps!C25",
+                    "deviceVue": "Pumps!C26",
+                    "total": "Pumps!C27"
+                },
+                "indirect": {
+                    "autoProgramming": "Pumps!D22",
+                    "singleSetTechnology": "Pumps!D25",
+                    "deviceVue": "Pumps!D26",
+                    "autoDocumentation": "Pumps!D23",
+                    "titrationErrorReduction": "Pumps!D24",
+                    "total": "Pumps!D27"
+                },
+                "revenue": {
+                    "autoDocumentation": "Pumps!E23",
+                    "total": "Pumps!E27"
+                }
+            }
+        },
+        "access": {
+            "annual": {
+                "direct": {
+                    "arisure": "Access!C5",
+                    "setsAndNeedlelessConnectors": "Access!C6",
+                    "total": "Access!C7"
+                },
+                "indirect": {
+                    "arisure": "Access!D5",
+                    "setsAndNeedlelessConnectors": "Access!D6",
+                    "total": "Access!D7"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "arisure": "Access!C11",
+                    "setsAndNeedlelessConnectors": "Access!C12",
+                    "total": "Access!C13"
+                },
+                "indirect": {
+                    "arisure": "Access!D11",
+                    "setsAndNeedlelessConnectors": "Access!D12",
+                    "total": "Access!D13"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "arisure": "Access!C17",
+                    "setsAndNeedlelessConnectors": "Access!C18",
+                    "total": "Access!C19"
+                },
+                "indirect": {
+                    "arisure": "Access!D17",
+                    "setsAndNeedlelessConnectors": "Access!D18",
+                    "total": "Access!D19"
+                }
+            }
+        },
+        "fluids": {
+            "annual": {
+                "direct": {
+                    "solutions": "IV Fluids!C5",
+                    "miniBagPlus": "IV Fluids!C6",
+                    "otherPremixes": "IV Fluids!C7",
+                    "nutrition": "IV Fluids!C8",
+                    "total": "IV Fluids!C9"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "solutions": "IV Fluids!C13",
+                    "miniBagPlus": "IV Fluids!C14",
+                    "otherPremixes": "IV Fluids!C15",
+                    "nutrition": "IV Fluids!C16",
+                    "total": "IV Fluids!C17"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "solutions": "IV Fluids!C21",
+                    "miniBagPlus": "IV Fluids!C22",
+                    "otherPremixes": "IV Fluids!C23",
+                    "nutrition": "IV Fluids!C24",
+                    "total": "IV Fluids!C25"
+                }
+            }
+        },
+        "singleSet": {
+            "annual": {
+                "direct": {
+                    "total": "SingleSet!B3"
+                },
+                "indirect": {
+                    "total": "SingleSet!C3"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "total": "SingleSet!B4"
+                },
+                "indirect": {
+                    "total": "SingleSet!C4"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "total": "SingleSet!B5"
+                },
+                "indirect": {
+                    "total": "SingleSet!C5"
+                }
+            },
+            "setUsageReduction": "SingleSet!B8",
+            "wasteReduction": "SingleSet!B9",
+            "annualDisconnectsReduced": "SingleSet!B10",
+            "nurseTimeReduced": "SingleSet!B11",
+            "IVFluidWasteSavings": "SingleSet!B12"
+        },
+        "autoDocumentation": {
+            "annual": {
+                "indirect": {
+                    "total": "AutoD!C3"
+                },
+                "revenue": {
+                    "total": "AutoD!D3"
+                }
+            },
+            "perBed": {
+                "indirect": {
+                    "total": "AutoD!C4"
+                },
+                "revenue": {
+                    "total": "AutoD!D4"
+                }
+            },
+            "5year": {
+                "indirect": {
+                    "total": "AutoD!C5"
+                },
+                "revenue": {
+                    "total": "AutoD!D5"
+                }
+            },
+            "nurseTimeSaved": "AutoD!B9"
+        },
+        "autoProgramming": {
+            "annual": {
+                "indirect": {
+                    "drugLibraryCompliance": "Programming!C4",
+                    "autoprogramming": "Programming!C5",
+                    "total": "Programming!C6"
+                }
+            },
+            "perBed": {
+                "indirect": {
+                    "drugLibraryCompliance": "Programming!C9",
+                    "autoprogramming": "Programming!C10",
+                    "total": "Programming!C11"
+                }
+            },
+            "5year": {
+                "indirect": {
+                    "drugLibraryCompliance": "Programming!C14",
+                    "autoprogramming": "Programming!C15",
+                    "total": "Programming!C16"
+                }
+            },
+            "totalDailyICUInfusionsProgrammed": "Programming!B24",
+            "totalICUInfusionStarts": "Programming!B25",
+            "totalICUTitrations": "Programming!B26",
+            "reductionInAnnualNumberOfErrors": "Programming!B28",
+            "drugLibraryCompliance": "Programming!B29",
+            "autoprogrammingBasicMode": "Programming!B30"
+        },
+        "titrationErrorReduction": {
+            "annual": {
+                "indirect": {
+                    "total": "Titration!C3"
+                }
+            },
+            "perBed": {
+                "indirect": {
+                    "total": "Titration!C4"
+                }
+            },
+            "5year": {
+                "indirect": {
+                    "total": "Titration!C5"
+                }
+            },
+            "avoidedPreventableADE": "Titration!B8"
+        },
+        "deviceVue": {
+            "annual": {
+                "direct": {
+                    "total": "DeviceVue!B4"
+                },
+                "indirect": {
+                    "total": "DeviceVue!C4"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "total": "DeviceVue!B5"
+                },
+                "indirect": {
+                    "total": "DeviceVue!C5"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "total": "DeviceVue!B6"
+                },
+                "indirect": {
+                    "total": "DeviceVue!C6"
+                }
+            },
+            "common": {
+                "reductionInBioMedEquipment": {
+                    "total": "DeviceVue!B9"
+                },
+                "reductionInNurseEquipment": {
+                    "total": "DeviceVue!B10"
+                }
+            }
+        },
+        "setsAndNeedlessConnectors": {
+            "annual": {
+                "direct": {
+                    "onelink": "Sets and Needless Connectors!C4",
+                    "clearlink": "Sets and Needless Connectors!C5",
+                    "interlink": "Sets and Needless Connectors!C6",
+                    "otherAccess": "Sets and Needless Connectors!C7",
+                    "total": "Sets and Needless Connectors!C8"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "onelink": "Sets and Needless Connectors!C12",
+                    "clearlink": "Sets and Needless Connectors!C13",
+                    "interlink": "Sets and Needless Connectors!C14",
+                    "otherAccess": "Sets and Needless Connectors!C15",
+                    "total": "Sets and Needless Connectors!C16"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "onelink": "Sets and Needless Connectors!C20",
+                    "clearlink": "Sets and Needless Connectors!C21",
+                    "interlink": "Sets and Needless Connectors!C22",
+                    "otherAccess": "Sets and Needless Connectors!C23",
+                    "total": "Sets and Needless Connectors!C24"
+                }
+            }
+        },
+        "arisure": {
+            "annual": {
+                "direct": {
+                    "total": "Arisure!B4"
+                },
+                "indirect": {
+                    "total": "Arisure!C4"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "total": "Arisure!B5"
+                },
+                "indirect": {
+                    "total": "Arisure!C5"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "total": "Arisure!B6"
+                },
+                "indirect": {
+                    "total": "Arisure!C6"
+                }
+            }
+        },
+        "solutions": {
+            "annual": {
+                "direct": {
+                    "LVP": "Solutions!C4",
+                    "SVP": "Solutions!C5",
+                    "pourBottles": "Solutions!C6",
+                    "total": "Solutions!C7"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "LVP": "Solutions!C11",
+                    "SVP": "Solutions!C12",
+                    "pourBottles": "Solutions!C13",
+                    "total": "Solutions!C14"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "LVP": "Solutions!C18",
+                    "SVP": "Solutions!C19",
+                    "pourBottles": "Solutions!C20",
+                    "total": "Solutions!C21"
+                }
+            }
+        },
+        "premix": {
+            "annual": {
+                "direct": {
+                    "frozenPremix": "Premixes!C4",
+                    "liquidPremix": "Premixes!C5",
+                    "total": "Premixes!C6"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "frozenPremix": "Premixes!C10",
+                    "liquidPremix": "Premixes!C11",
+                    "total": "Premixes!C12"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "frozenPremix": "Premixes!C16",
+                    "liquidPremix": "Premixes!C17",
+                    "total": "Premixes!C18"
+                }
+            }
+        },
+        "miniBagPlus": {
+            "annual": {
+                "direct": {
+                    "total": "MB+!B4"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "total": "MB+!B5"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "total": "MB+!B6"
+                }
+            }
+        },
+        "nutrition": {
+            "annual": {
+                "direct": {
+                    "AAPremix": "Nutrition!C4",
+                    "exactamixDisposables": "Nutrition!C5",
+                    "aminoAcids": "Nutrition!C6",
+                    "lipids": "Nutrition!C7",
+                    "vitamins": "Nutrition!C8",
+                    "total": "Nutrition!C9"
+                }
+            },
+            "perBed": {
+                "direct": {
+                    "AAPremix": "Nutrition!C13",
+                    "exactamixDisposables": "Nutrition!C14",
+                    "aminoAcids": "Nutrition!C15",
+                    "lipids": "Nutrition!C16",
+                    "vitamins": "Nutrition!C17",
+                    "total": "Nutrition!C18"
+                }
+            },
+            "5year": {
+                "direct": {
+                    "AAPremix": "Nutrition!C22",
+                    "exactamixDisposables": "Nutrition!C23",
+                    "aminoAcids": "Nutrition!C24",
+                    "lipids": "Nutrition!C25",
+                    "vitamins": "Nutrition!C26",
+                    "total": "Nutrition!C27"
+                }
+            }
+        },
+        "databases" : {
+            "JDEDb": "JDE DB!A2:A15520",
+            "hospitalsDb": "Hosp DB!B2:B8377",
+            "GPODB": "Hosp DB!F2:F8377"
+        }
+    },
+
+    "defaults": {
+
+    }
+}
