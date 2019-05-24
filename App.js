@@ -27,7 +27,7 @@ export default class App extends Component {
 			// console.warn('patients', excelEngine.get('/inputs/patients/cabgPatientsPerYear'));
 			
 			// console.log(excelEngine.get("/"));
-			const dataToSet = { "/inputs/patients/cabgPatientsPerYear": 0 };
+			const dataToSet = { "/inputs/patients/cabgPatientsPerYear": 2000 };
 			let end;
 			const start = Date.now();
 			excelEngine.set(dataToSet);
