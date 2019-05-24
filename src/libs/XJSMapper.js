@@ -1,1 +1,130 @@
-module.exports=function(t){function e(n){if(r[n])return r[n].exports;var i=r[n]={exports:{},id:n,loaded:!1};return t[n].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e){function r(t){if(!t.xjs)throw"xjs is required";if(!t.mappings)throw"mappings are required";this.xjs=t.xjs,this.mappings=t.mappings,this._init()}t.exports=r,r.prototype={get:function(t){var e=this._getMappingByPath(t);return this._dereferenceMapping(e)},set:function(t){var e=this.flattern;for(var r in t){var n=t[r];r=this._normalizePath(r);var i=r.replace(/(\/\d+){2}$/,""),a=e[i];if(a||(i=r.replace(/(\/\d+){1}$/,""),a=e[i]),!a)throw"WRONG PATH "+r;var s=0,p=0,o=r.match(/\/(\d+)\/?(\d+)?$/);o&&(s=o[1]||0,p=o[2]||0);var f=this.xjs.addressParser.parse(a),h=o?{sheet:f.sheet,col:parseInt(f.startCol,10)+parseInt(p,10),row:parseInt(f.startRow,10)+parseInt(s,10)}:f;this.xjs._setCellValue(h,n)}},recompute:function(t){this.xjs.recompute(t)},_init:function(){this.flattern=this.flatternKeys(this.mappings)},_dereferenceMapping:function(t,e){var r=e||{};if("object"==typeof t){for(var n in t)r[n]=this._dereferenceMapping(t[n]);return r}var i=t;return this.xjs.getCellValue(i)},_getMappingByPath:function(t){if("/"==t)return this.mappings;for(var e=this._normalizePath(t),r=e.split(/\//),n=this.mappings,i=0;i<r.length;i++){var a=r[i];if(!n[a])throw"WRONG PATH "+e;n=n[a]}return n},_normalizePath:function(t){return t.replace(/\/$/,"").replace(/^\//,"")},flatternKeys:function(t,e,r){r||(r={});for(var n in t){var i=e?e+"/"+n:n,a=t[n];"object"==typeof a?this.flatternKeys(a,i,r):r[i]=a}return r}}}]);
+module.exports = XJSMapper;
+
+function XJSMapper(args) {
+    if (!args.xjs) throw "xjs is required";
+    if (!args.mappings) throw "mappings are required";
+
+    this.xjs      = args.xjs;
+    this.mappings = args.mappings;
+
+    this._init();
+}
+
+XJSMapper.prototype = {
+    get: function(path) {
+        var submapping = this._getMappingByPath(path);
+        return this._dereferenceMapping(submapping);
+    },
+    set: function(data) {
+        var flatternMapping = this.flattern;
+
+        for ( var fullPath in data ) {
+            var value = data[fullPath];
+
+            fullPath = this._normalizePath(fullPath);
+
+            var mappingPath  = fullPath.replace(/(\/\d+){2}$/, '');
+            var excelAddress = flatternMapping[mappingPath];
+
+            if ( !excelAddress ) {
+                mappingPath  = fullPath.replace(/(\/\d+){1}$/, ''); // assume mapping contain []
+                excelAddress = flatternMapping[mappingPath];
+            }
+
+            if ( !excelAddress ) {
+                throw "WRONG PATH " + fullPath;
+            }
+
+            var rowOffset = 0;
+            var colOffset = 0;
+
+            var matched = fullPath.match(/\/(\d+)\/?(\d+)?$/);
+            if (matched) {
+                rowOffset = matched[1] || 0;
+                colOffset = matched[2] || 0;
+            }
+
+            var parsedAddr = this.xjs.addressParser.parse(excelAddress);
+
+            var cellAddr = matched ? {
+                sheet: parsedAddr.sheet,
+                col: parseInt(parsedAddr.startCol, 10) + parseInt(colOffset,10),
+                row: parseInt(parsedAddr.startRow, 10) + parseInt(rowOffset,10)
+            } : parsedAddr;
+
+            if (cellAddr.type === 'range') {
+                const { endCol, endRow, sheet, startCol, startRow } = cellAddr;
+
+                for (let row = startRow, i = 0; row < endRow + 1; row++, i++) {
+                    for (let col = startCol, j = 0; col < endCol + 1; col++, j++) {
+                        this.xjs._setCellValue({ type: 'cell', sheet, row, col }, value[i][j]);
+                    }
+                }
+            } else this.xjs._setCellValue(cellAddr, value);
+        }
+    },
+    recompute: function(on_ready) {
+        this.xjs.recompute(on_ready);
+    },
+    _init: function() {
+        this.flattern = this.flatternKeys(this.mappings);
+    },
+    _dereferenceMapping: function(mapping, dereferenced_parent) {
+        var dereferenced = dereferenced_parent || {};
+
+        if ( typeof(mapping) === 'object' ) {
+            for ( var name in mapping ) {
+                dereferenced[name] = this._dereferenceMapping(mapping[name]);
+            }
+
+            return dereferenced;
+        }
+
+        var address = mapping;
+        return this.xjs.getCellValue(address);
+    },
+    _getMappingByPath: function(inputPath) {
+        if ( inputPath == '/'  ) {
+            return this.mappings;
+        }
+
+        var path   = this._normalizePath(inputPath);
+        var parts  = path.split(/\//);
+        var parent = this.mappings;
+
+        console.log('=============================================');
+        console.log(parent, parts);
+        console.log('=============================================');
+
+        for ( var i = 0; i < parts.length; i++ ) {
+            var part = parts[i];
+            if (parent[part]) {
+                parent = parent[part];
+            } else {
+                throw "WRONG PATH " + path;
+            }
+        }
+
+        return parent;
+    },
+    _normalizePath: function(path) {
+        return path.replace(/\/$/, '').replace(/^\//, '');
+    },
+    flatternKeys: function(object, parent_key, flattern) {
+        if (!flattern) flattern = {};
+
+        for ( var key in object ) {
+            var key_path =  parent_key ? (parent_key + '/' + key) : key;
+
+            var value = object[key];
+
+            if ( typeof(value) == 'object') {
+                this.flatternKeys(value, key_path, flattern);
+            } else {
+                flattern[key_path] = value;
+            }
+        }
+
+        return flattern;
+    }
+};

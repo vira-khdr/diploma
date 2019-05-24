@@ -1,0 +1,1 @@
+export default window.__MODEL_CACHE__;   // eslint-disable-line
