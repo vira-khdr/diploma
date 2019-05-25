@@ -92,10 +92,6 @@ XJSMapper.prototype = {
         var parts  = path.split(/\//);
         var parent = this.mappings;
 
-        console.log('=============================================');
-        console.log(parent, parts);
-        console.log('=============================================');
-
         for ( var i = 0; i < parts.length; i++ ) {
             var part = parts[i];
             if (parent[part]) {

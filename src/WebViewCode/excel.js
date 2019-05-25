@@ -26,7 +26,7 @@ class Excel {
 
     recompute(cb) {
         this.mapper.recompute(() => {
-			console.log('recompute')
+			// console.log('recompute')
 			cb();
 		});
     }

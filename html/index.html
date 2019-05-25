@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <script type="text/javascript" src="../src/WebViewCode/dist/bundle.js"></script>
+        <script type="text/javascript" src="EventsManager.js"></script>
+    </head>
+    <body>
+        <div>
+            <span>My HTML</span>
+            <button onclick="main()">RUN</button>
+        </div>
+    </body>
+    <script>
+        const handlers = {};
+        async function main() {
+            const data = { type: 'RUN' };
+            console.log(JSON.stringify(data));
+            
+            const res = await send(JSON.stringify(data));
+            console.log(res);
+        }
+    </script>
+</html>

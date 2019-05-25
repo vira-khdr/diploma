@@ -7,45 +7,48 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import excelEngine from "./src/excel";
-
-const instructions = Platform.select({
-	ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-	android: "Double tap R on your keyboard to reload,\n" + "Shake or press menu button for dev menu"
-});
+import { StyleSheet, Text, View, Button } from "react-native";
+import calculate from "./src/WebViewCode/calculate";
+import WebView from './src/WebViewCode/WebViewCode.js';
+import WebViewCode from "./src/WebViewCode/WebViewCode.js";
 
 export default class App extends Component {
 	state = {
-		message: "Loading..."
+		message: ""
 	};
-	componentDidMount() {
-		setTimeout(this.handleRecompute, 3000);
+	handleRunCalculation = (action, data) => {
+		this.setState({ message: 'Loading...' });
+		setTimeout(async () => {
+			try {
+				const start = Date.now();
+				await action(data);
+				const end = Date.now();
+				const time = (end - start) / 1000;
+				this.setState({ message: time });
+			} catch (error) {
+				console.log(error);
+				this.setState({ message: error });
+			}
+		}, 100);
 	}
-	handleRecompute = () => {
-		try {
-			// console.warn('patients', excelEngine.get('/inputs/patients/cabgPatientsPerYear'));
-			
-			// console.log(excelEngine.get("/"));
-			const dataToSet = { "/inputs/patients/cabgPatientsPerYear": 2000 };
-			let end;
-			const start = Date.now();
-			excelEngine.set(dataToSet);
-			excelEngine.recompute(() => {
-				end = Date.now();
-			});
-			const time = (end - start) / 1000;
-			// console.log(excelEngine.get("/"));
-			this.setState({ message: time });
-		} catch (error) {
-			this.setState({ message: error });
-		}
+	handleNative = () => {
+		this.handleRunCalculation(calculate);
 	};
+	handleWebView = async () => {
+		if (this.webView) {
+			this.handleRunCalculation(this.webView.send, { type: 'RUN' });
+		}
+	}
 	render() {
 		const { message } = this.state;
 		return (
 			<View style={styles.container}>
 				<Text>{message}</Text>
+				<Button onPress={this.handleNative} title='Run action Native' />
+				<Button onPress={this.handleWebView} title='Run action WebView' />
+				<WebViewCode
+					ref = {webView => this.webView = webView}
+				/>
 			</View>
 		);
 	}
@@ -57,15 +60,5 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "#F5FCFF"
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: "center",
-		margin: 10
-	},
-	instructions: {
-		textAlign: "center",
-		color: "#333333",
-		marginBottom: 5
 	}
 });

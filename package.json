@@ -4,21 +4,28 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "bundle": "webpack src/WebViewCode/main.js -o src/WebViewCode/dist/bundle.js",
+    "jsToString": "node scripts/jsToString.js",
+    "build": "npm run bundle && npm run jsToString"
   },
   "dependencies": {
     "js2xmlparser": "^4.0.0",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-webview": "^5.10.0",
     "util": "^0.12.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.4",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
     "@babel/runtime": "7.4.4",
     "babel-jest": "24.8.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
-    "react-test-renderer": "16.8.3"
+    "react-test-renderer": "16.8.3",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
   },
   "jest": {
     "preset": "react-native"
