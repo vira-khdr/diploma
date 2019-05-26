@@ -14,24 +14,33 @@ else if (
     (typeof window['window.webkit.messageHandlers.ReactNative'].postMessage === 'function')
 ) {
     ReactNative = window['window.webkit.messageHandlers.ReactNative'];
+} else if (
+    window.ReactNativeWebView
+) {
+    ReactNative = window.ReactNativeWebView;
 }
 
 async function run(id) {
     let start;
     let end;
-    document.postMessage(JSON.stringify({ type: 'LOG', message: 'start' }));
+    ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'start' }));
+    document.getElementById('message').innerHTML+=`<br>start`;
     start = Date.now();
     await calculate();
     end = Date.now();
-    document.postMessage(JSON.stringify({ type: 'LOG', message: 'end' }));
+    ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'end' }));
+    document.getElementById('message').innerHTML+=`<br>end`;
     const time = (end - start) / 1000;
-    document.postMessage(JSON.stringify({ type: 'LOG', message: time }));
-    document.postMessage(JSON.stringify({ type: 'END', id, time }));
+    ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: time }));
+    document.getElementById('message').innerHTML+=`<br>${time}`;
+    ReactNative.postMessage(JSON.stringify({ type: 'END', id, time }));
 }
 
 async function receiveMessage(event) {
+  document.getElementById('message').innerHTML=event.data;
   if (event && event.data) {
       const { type, id } = JSON.parse(event.data);
+      document.getElementById('message').innerHTML+=`<br>${type}`;
       switch(type) {
           case 'END':
           case 'LOG':
@@ -40,15 +49,16 @@ async function receiveMessage(event) {
             run(id);
             break;
         default:
-            document.postMessage(JSON.stringify({ type: 'LOG', message: 'receiveMessage', event }));
+            // ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'receiveMessage', event }));
             break;
       }
   }
 }
 
-setTimeout(() => {
-  window.postMessage(JSON.stringify({ type: 'LOG', message: 'connected window' }));
-  if (ReactNative !== null) ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'connected document' }));
-}, 5000);
+// setTimeout(() => {
+//   if (ReactNative !== null) ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'connected document' }));
+// // if (ReactNative !== null) ReactNative.postMessage('Hello WORLD');
+// }, 3000);
 
 document.addEventListener("message", receiveMessage, false);
+window.addEventListener("message", receiveMessage, false);

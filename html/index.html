@@ -4,9 +4,10 @@
         <script type="text/javascript" src="EventsManager.js"></script>
     </head>
     <body>
-        <div>
+        <div id='root'>
             <span>My HTML</span>
             <button onclick="main()">RUN</button>
+            <div id='text'></div>
         </div>
     </body>
     <script>
@@ -17,6 +18,10 @@
             
             const res = await send(JSON.stringify(data));
             console.log(res);
+
+            const text = document.getElementById('text');
+
+            text.set
         }
     </script>
 </html>

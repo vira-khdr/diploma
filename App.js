@@ -14,38 +14,51 @@ import WebViewCode from "./src/WebViewCode/WebViewCode.js";
 
 export default class App extends Component {
 	state = {
-		message: ""
+		message: '',
+		nativeTime : '--',
+		webViewTime : '--'
 	};
-	handleRunCalculation = (action, data) => {
-		this.setState({ message: 'Loading...' });
-		setTimeout(async () => {
-			try {
-				const start = Date.now();
-				await action(data);
-				const end = Date.now();
-				const time = (end - start) / 1000;
-				this.setState({ message: time });
-			} catch (error) {
-				console.log(error);
-				this.setState({ message: error });
-			}
-		}, 100);
+	handleRunCalculation = async (action, data) => {
+		return new Promise((resolve, reject) => {
+			this.setState({ message: 'Loading...' });
+			setTimeout(async () => {
+				try {
+					const start = Date.now();
+					await action(data);
+					const end = Date.now();
+					const time = (end - start) / 1000;
+					resolve(time);
+				} catch (error) {
+					resolve(error);
+				} finally {
+					this.setState({ message: '' });
+				}
+			}, 100);
+		});
 	}
-	handleNative = () => {
-		this.handleRunCalculation(calculate);
+	handleNative = async () => {
+		const nativeTime = await this.handleRunCalculation(calculate);
+		this.setState({ nativeTime });
 	};
 	handleWebView = async () => {
 		if (this.webView) {
-			this.handleRunCalculation(this.webView.send, { type: 'RUN' });
+			const webViewTime = await this.handleRunCalculation(this.webView.send, { type: 'RUN' });
+			this.setState({ webViewTime });
 		}
 	}
 	render() {
-		const { message } = this.state;
+		const { message, nativeTime, webViewTime } = this.state;
 		return (
 			<View style={styles.container}>
 				<Text>{message}</Text>
-				<Button onPress={this.handleNative} title='Run action Native' />
-				<Button onPress={this.handleWebView} title='Run action WebView' />
+				<Text>{`Native Time: ${nativeTime}`}</Text>
+				<Text>{`WebView Time: ${webViewTime}`}</Text>
+				<View style={styles.button}>
+					<Button onPress={this.handleNative} title='Run action Native' />
+				</View>
+				<View style={styles.button}>
+					<Button style={styles.button} onPress={this.handleWebView} title='Run action WebView' />
+				</View>
 				<WebViewCode
 					ref = {webView => this.webView = webView}
 				/>
@@ -60,5 +73,8 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "#F5FCFF"
+	},
+	button : {
+		margin : 10
 	}
 });

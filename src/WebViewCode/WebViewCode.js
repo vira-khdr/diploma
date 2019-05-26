@@ -5,20 +5,22 @@ import { WebView } from 'react-native-webview';
 const myJsLib = require('./dist/external-lib.js');
 
 export default class WebViewCode extends Component {
+    constructor(...args) {        
+        super(...args);
+        this.resolvers = {};
+    }
     send = (data) => {
         if (this.webView) {
             const id = Date.now();
             this.webView.postMessage(JSON.stringify({ ...data, id }));
-            
-            return new Promise((resolve) => {
-                if (!this.resolvers) this.resolvers = {};
-                this.resolvers[id] = resolve;
-            });
+
+            return new Promise(resolve => this.resolvers[id] = resolve);
         }
     }
     _receiver = (event) => {
-        console.log(event);
+        console.log(event.nativeEvent);
         const { id, type, ...data } = JSON.parse(event.nativeEvent.data);
+        console.log({ id, type, ...data });
 
         if (this.resolvers) {
             if (this.resolvers[id]) this.resolvers[id](data);
@@ -32,12 +34,10 @@ export default class WebViewCode extends Component {
                     ref       = {webView => this.webView = webView}
                     onMessage = {this._receiver}
                     injectedJavaScript = {myJsLib}
-                    // onLoadEnd = {() => console.warn('onLoadEnd')}
-                    // onLoadStart = {() => console.warn('onLoadStart')}
-                    // originWhitelist={['*']}
-                    // source={{ html: '<h1>Hello world</h1>' }}
-                    // style    ={{ position: 'absolute' }}
+                    source={{ html: '<div id="message"></div>' }}
+                    style    = {{ flex: 1, backgroundColor: 'pink' }}
                     javaScriptEnabledAndroid={true}
+                    javaScriptEnabled={true}
                 />
             </View>
         );
