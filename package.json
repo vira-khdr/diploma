@@ -17,6 +17,7 @@
     "react-native-stopwatch-timer": "0.0.20",
     "react-native-threads": "0.0.16",
     "react-native-webview": "^5.10.0",
+    "rn-workers": "^0.1.7",
     "util": "^0.12.0"
   },
   "devDependencies": {
