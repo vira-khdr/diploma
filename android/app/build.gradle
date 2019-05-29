@@ -149,7 +149,7 @@ android {
 }
 
 dependencies {
-    implementation project(':rn-workers')
+//    implementation project(':rn-workers')
     implementation project(':react-native-device-info')
     implementation project(':react-native-threads')
     implementation project(':react-native-webview')
