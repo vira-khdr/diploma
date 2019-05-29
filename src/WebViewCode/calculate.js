@@ -4,6 +4,9 @@ import { setInputsValue, setParametersValue, deepClone } from './utils';
 const RANDOMIZE_EMPTY_DATA = new Array(2200).fill([]).map(() => new Array(10).fill(''));
 
 export default async function calculate() {
+    await setInputsValue('', {
+        'inputs/sensitivity/modelRuns' : 5
+    });
     const { modelRuns, seedValue, runAction } = excelEngine.get('inputs/sensitivity');
     const seed = Math.round(seedValue);
     const runs = +modelRuns;
