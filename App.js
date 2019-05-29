@@ -8,19 +8,29 @@
 
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
+import { Stopwatch } from 'react-native-stopwatch-timer';
 import calculate from "./src/WebViewCode/calculate";
-import WebView from './src/WebViewCode/WebViewCode.js';
 import WebViewCode from "./src/WebViewCode/WebViewCode.js";
 
 export default class App extends Component {
 	state = {
 		message: '',
 		nativeTime : '--',
-		webViewTime : '--'
+		webViewTime : '--',
+		stopwatchStart : false,
+		stopwatchReset : false
 	};
+	toggleStopwatch() {
+		this.setState({stopwatchStart: !this.state.stopwatchStart, stopwatchReset: false});
+	}
+	resetStopwatch() {
+		this.setState({stopwatchStart: false, stopwatchReset: true});
+	}
 	handleRunCalculation = async (action, data) => {
 		return new Promise((resolve, reject) => {
 			this.setState({ message: 'Loading...' });
+			this.resetStopwatch();
+			this.toggleStopwatch();
 			setTimeout(async () => {
 				try {
 					const start = Date.now();
@@ -32,6 +42,7 @@ export default class App extends Component {
 					resolve(error);
 				} finally {
 					this.setState({ message: '' });
+					this.toggleStopwatch();
 				}
 			}, 100);
 		});
@@ -50,6 +61,11 @@ export default class App extends Component {
 		const { message, nativeTime, webViewTime } = this.state;
 		return (
 			<View style={styles.container}>
+				<Stopwatch
+					msecs = {false}
+					start = {this.state.stopwatchStart}
+					reset = {this.state.stopwatchReset}
+				/>
 				<Text>{message}</Text>
 				<Text>{`Native Time: ${nativeTime}`}</Text>
 				<Text>{`WebView Time: ${webViewTime}`}</Text>
