@@ -13,7 +13,6 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 import calculate from "./src/WebViewCode/calculate";
 import WebViewCode from "./src/WebViewCode/WebViewCode.js";
 import * as ThreadManader from './src/RNThreads/ThreadManager.js';
-// import * as WrokerManager from './src/RNWorkers/WrokerManager.js';
 
 const titles = {
 	native : 'Native',
