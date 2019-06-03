@@ -8,7 +8,7 @@
 
 import React, { Component } from "react";
 import DeviceInfo from 'react-native-device-info';
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { Stopwatch } from 'react-native-stopwatch-timer';
 import calculate from "./src/WebViewCode/calculate";
 import WebViewCode from "./src/WebViewCode/WebViewCode.js";
@@ -17,8 +17,8 @@ import * as ThreadManader from './src/RNThreads/ThreadManager.js';
 const titles = {
 	native : 'Native',
 	webview : 'WebView',
-	threads : 'Threads',
-	worker  : 'Worker'
+	threads : 'Threads'
+	// worker  : 'Worker'
 };
 
 const handlers = {};
@@ -30,12 +30,13 @@ export default class App extends Component {
 		time : {},
 		battery : {},
 		stopwatchStart : false,
-		stopwatchReset : false
+		stopwatchReset : false,
+		modelRuns      : 5
 	};
 	constructor(...args) {
 		super(...args);
 
-		handlers['native'] = calculate;
+		handlers['native'] = ({ modelRuns }) => calculate(modelRuns);
 		// handlers['webview'] = this.webView.send;
 		handlers['threads'] = ThreadManader.send;
 		// handlers['worker'] = this.handleWorker;
@@ -47,7 +48,7 @@ export default class App extends Component {
 		this.setState({ stopwatchStart: false, stopwatchReset: true });
 	}
 	handleRunCalculation = async (type) => {
-		const data = { type: 'RUN' };
+		const data = { type: 'RUN', modelRuns: this.state.modelRuns };
 		if (this.state.isLoading) return;
 		if (type === 'webview' && !this.webView) return;
 		if (type === 'webview' && !handlers['webview']) handlers['webview'] = this.webView.send;
@@ -95,9 +96,14 @@ export default class App extends Component {
 		);
 	}
 	render() {
-		const { message } = this.state;
+		const { message, modelRuns } = this.state;
 		return (
 			<View style={styles.container}>
+				<TextInput
+					value = {`${modelRuns}`}
+					keyboardType = 'number-pad'
+					onChangeText = {(text) => this.setState({ modelRuns: +text })}
+				/>
 				<Stopwatch
 					msecs = {false}
 					start = {this.state.stopwatchStart}

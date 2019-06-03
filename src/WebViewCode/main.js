@@ -20,13 +20,13 @@ else if (
     ReactNative = window.ReactNativeWebView;
 }
 
-async function run(id) {
+async function run(id, modelRuns) {
     let start;
     let end;
     ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'start' }));
     document.getElementById('message').innerHTML+=`<br>start`;
     start = Date.now();
-    await calculate();
+    await calculate(modelRuns);
     end = Date.now();
     ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'end' }));
     document.getElementById('message').innerHTML+=`<br>end`;
@@ -39,14 +39,14 @@ async function run(id) {
 async function receiveMessage(event) {
   document.getElementById('message').innerHTML=event.data;
   if (event && event.data) {
-      const { type, id } = JSON.parse(event.data);
+      const { type, id, modelRuns } = JSON.parse(event.data);
       document.getElementById('message').innerHTML+=`<br>${type}`;
       switch(type) {
           case 'END':
           case 'LOG':
             return;
           case 'RUN':
-            run(id);
+            run(id, modelRuns);
             break;
         default:
             // ReactNative.postMessage(JSON.stringify({ type: 'LOG', message: 'receiveMessage', event }));
