@@ -29,17 +29,17 @@ export default class WebViewCode extends Component {
     }
     render() {
         return (
-            <View style={{ position: 'absolute' }}>
+            // <View style={{ position: 'absolute' }}>
                 <WebView
                     ref       = {webView => this.webView = webView}
                     onMessage = {this._receiver}
                     injectedJavaScript = {myJsLib}
                     source={{ html: '<div id="message"></div>' }}
-                    style    = {{ flex: 1, backgroundColor: 'pink' }}
+                    style    = {{ flex: 1, backgroundColor: 'lightblue', width: 360 }}
                     javaScriptEnabledAndroid={true}
                     javaScriptEnabled={true}
                 />
-            </View>
+            //</View>
         );
     }
 }
